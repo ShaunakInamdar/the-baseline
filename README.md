@@ -1,6 +1,8 @@
 # The Baseline
 
-A hackathon starter template. Clone, fill in env vars, and start building.
+ A hackathon starter template. Clone, fill in env vars, and start building.
+
+> AI agents: read `AGENTS.md` first for the compact repo brief and startup questions.
 
 ## Stack
 
