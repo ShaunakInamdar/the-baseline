@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { isClerkConfigured } from "@/lib/auth-config";
 
 export default function Home() {
+  const authConfigured = isClerkConfigured;
+
   return (
     <main className="min-h-screen flex flex-col items-center justify-center p-8 gap-8">
       <div className="text-center max-w-2xl">
@@ -12,30 +15,38 @@ export default function Home() {
         </p>
 
         <div className="flex gap-4 justify-center">
-          <SignedOut>
-            <Link
-              href="/sign-in"
-              className="px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition"
-            >
-              Sign In
-            </Link>
-            <Link
-              href="/sign-up"
-              className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
-            >
-              Sign Up
-            </Link>
-          </SignedOut>
+          {authConfigured ? (
+            <>
+              <SignedOut>
+                <Link
+                  href="/sign-in"
+                  className="px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/sign-up"
+                  className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
+                >
+                  Sign Up
+                </Link>
+              </SignedOut>
 
-          <SignedIn>
-            <Link
-              href="/dashboard"
-              className="px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition"
-            >
-              Go to Dashboard
-            </Link>
-            <UserButton />
-          </SignedIn>
+              <SignedIn>
+                <Link
+                  href="/dashboard"
+                  className="px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition"
+                >
+                  Go to Dashboard
+                </Link>
+                <UserButton />
+              </SignedIn>
+            </>
+          ) : (
+            <div className="rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+              Add your Clerk keys to `.env.local` to enable sign-in and the dashboard.
+            </div>
+          )}
         </div>
       </div>
 

@@ -2,8 +2,26 @@ import { auth, currentUser } from "@clerk/nextjs/server";
 import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import Chat from "@/components/chat";
+import { isClerkConfigured } from "@/lib/auth-config";
 
 export default async function DashboardPage() {
+  if (!isClerkConfigured) {
+    return (
+      <main className="min-h-screen p-8">
+        <div className="mx-auto max-w-2xl rounded-lg border border-amber-300 bg-amber-50 p-6 text-amber-950">
+          <h1 className="text-2xl font-semibold">Configure Clerk to unlock the dashboard</h1>
+          <p className="mt-3 text-sm">
+            Add your Clerk publishable and secret keys to `.env.local`, then restart the dev
+            server.
+          </p>
+          <Link href="/" className="mt-4 inline-block text-sm font-medium underline">
+            Return home
+          </Link>
+        </div>
+      </main>
+    );
+  }
+
   const { userId } = await auth();
   const user = await currentUser();
 

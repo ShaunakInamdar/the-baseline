@@ -1,67 +1,55 @@
 # AGENTS.md
 
-Start here. This is the canonical low-token brief for this repo.
+Read this first. It is the canonical low-token brief for the repo.
 
-## What this repo is
+## Repo summary
 
-- A reusable hackathon starter, not a finished product.
-- The active app is the root Next.js project.
-- The goal of a new session is to turn this starter into the user's product with the fewest necessary changes.
+- This is a generic hackathon starter.
+- The active codebase is the root Next.js app.
+- Treat all current code as scaffolding meant to be adapted, not preserved.
 
-## Active stack
+## Stack
 
-- Next.js 15 + App Router + TypeScript
-- Clerk for auth
-- Supabase for data
-- Anthropic Claude for AI
-- Tailwind CSS for styling
+- Next.js 15
+- TypeScript
+- Clerk
+- Supabase
+- Anthropic Claude
+- Tailwind CSS
 
-## What already works
+## What already exists
 
-- `/` landing page
-- Clerk sign-in and sign-up flows
-- `/dashboard` protected page
-- `/api/ai` authenticated Claude proxy
-- `/api/data` authenticated example CRUD for an `items` table
-- `.env.example` lists the required secrets and URLs
+- Public landing page at `/`
+- Clerk auth pages at `/sign-in` and `/sign-up`
+- Protected dashboard at `/dashboard`
+- Authenticated AI endpoint at `/api/ai`
+- Authenticated example data endpoint at `/api/data`
+- Environment template in `.env.example`
 
-## First files to inspect if needed
+## Files worth reading first
 
-- `README.md` for setup and the example `items` schema
-- `app/` for routes and API handlers
-- `components/chat.tsx` for the demo AI UI
-- `lib/ai.ts` and `lib/supabase.ts` for integrations
-- `middleware.ts` for route protection
+- `README.md`
+- `app/`
+- `components/chat.tsx`
+- `lib/ai.ts`
+- `lib/supabase.ts`
+- `middleware.ts`
 
-## Reference-only folders
+## Default assumptions
 
-Treat these as inherited source material, not current product requirements, unless the user explicitly wants them:
+- Keep the stack unless the user asks to swap parts.
+- Replace the sample `items` data model with product-specific tables.
+- Prefer the smallest end-to-end setup that makes the user's product real.
 
-- `frontend/`
-- `Ramona/`
-- `AI generated/`
-- `Planning/`
-- `recorded pitches/`
-- `VPS/`
-- `supabase/migrations/`
+## Ask the user first
 
-## Default working model
+1. What are we building?
+2. Which parts of the default stack should stay or change?
+3. What are the first core entities or features?
+4. What pages or flows are required for v1?
+5. Is AI central or optional?
+6. Where should this deploy?
 
-- Keep the root app as the starting point.
-- Replace the demo `items` flow with product-specific entities.
-- Reuse Clerk, Supabase, and Claude unless the user asks to swap them.
-- Do not delete legacy/reference folders without explicit approval.
+## Then
 
-## Ask the user these questions first
-
-1. What product are we building, in one sentence?
-2. Should we keep the default stack (`Clerk + Supabase + Claude + Next.js`), or swap any piece?
-3. What are the first 1-3 core features or data entities?
-4. What pages or flows must exist in v1?
-5. Is AI core to the product or just an add-on?
-6. Where should this deploy (`Vercel`, VPS, other)?
-7. Should the old reference folders stay for inspiration or be removed?
-
-## After the user answers
-
-Return the smallest end-to-end setup plan, then implement it.
+Propose the smallest implementation plan and start building.
