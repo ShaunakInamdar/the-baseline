@@ -1,18 +1,19 @@
 # The Baseline
 
-A clean, multipurpose hackathon starter built on Next.js, Clerk, Supabase, and Claude.
+A lean, multipurpose hackathon starter built on Next.js, Clerk, Supabase, and Claude.
 
-> AI agents: read `AGENTS.md` first for the compact repo brief and startup questions.
+> AI agents: read `AGENTS.md` first. It contains the compact setup brief and the service wiring order.
 
-## Included by default
+## What this starter includes
 
-- Next.js 15 App Router setup
-- Clerk authentication
-- Supabase client/server wiring
-- Claude-backed example AI route
-- Protected dashboard page
-- Example CRUD route for a sample `items` table
-- Tailwind CSS styling
+- Next.js 15 App Router shell
+- Tailwind CSS and TypeScript
+- Optional Clerk auth scaffolding
+- Lazy Supabase helpers in `lib/supabase.ts`
+- Anthropic helper in `lib/ai.ts`
+- Minimal landing page with setup guidance
+
+No demo dashboard, domain model, CRUD example, or product-specific AI flow is included.
 
 ## Quick start
 
@@ -20,22 +21,24 @@ A clean, multipurpose hackathon starter built on Next.js, Clerk, Supabase, and C
 git clone https://github.com/YOUR_USERNAME/the-baseline.git
 cd the-baseline
 npm install
-```
-
-Copy `.env.example` to `.env.local`, fill in your keys, then run:
-
-```bash
+copy .env.example .env.local
 npm run dev
 ```
 
 Open `http://localhost:3000`.
 
-## Required environment variables
+## Environment variables
+
+Copy `.env.example` to `.env.local`.
 
 ### Clerk
 
 - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
 - `CLERK_SECRET_KEY`
+- `NEXT_PUBLIC_CLERK_SIGN_IN_URL`
+- `NEXT_PUBLIC_CLERK_SIGN_UP_URL`
+- `NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL`
+- `NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL`
 
 ### Supabase
 
@@ -51,41 +54,24 @@ Open `http://localhost:3000`.
 
 - `NEXT_PUBLIC_APP_URL`
 
-## Example Supabase table
+## Recommended setup order
 
-The sample `/api/data` route expects an `items` table:
-
-```sql
-create table items (
-  id uuid default gen_random_uuid() primary key,
-  user_id text not null,
-  content text,
-  created_at timestamptz default now()
-);
-
-alter table items enable row level security;
-
-create policy "Users see own items" on items
-  for all using (user_id = auth.uid()::text);
-```
+1. Configure environment variables.
+2. Decide whether to keep Clerk, Supabase, and Claude or swap providers.
+3. Create your product pages under `app/`.
+4. Add shared UI under `components/` as needed.
+5. Add server routes or actions for product logic.
+6. Create your database schema and RLS in Supabase.
 
 ## Project structure
 
 ```text
-app/                  routes and API handlers
-components/           shared UI
-lib/                  service clients and helpers
-middleware.ts         auth protection
-.env.example          required environment variables
-AGENTS.md             compact repo context for AI agents
+app/                  routes and app shell
+lib/                  service helpers
+middleware.ts         Clerk middleware
+.env.example          environment template
+AGENTS.md             compact repo setup guide for AI agents
 ```
-
-## Typical first changes
-
-- Replace the sample `items` model with your own schema
-- Add product-specific pages under `app/`
-- Update the dashboard to match your first workflow
-- Swap auth, DB, or AI providers if needed
 
 ## Deploy
 
